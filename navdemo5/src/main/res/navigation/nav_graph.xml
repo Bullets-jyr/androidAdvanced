@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="kr.co.bullets.navdemo5.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_nameFragment"
+            app:destination="@id/nameFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_homeFragment_to_termsFragment"
+            app:destination="@id/termsFragment"
+            app:enterAnim="@anim/push_down_in"
+            app:exitAnim="@anim/push_down_out"
+            app:popEnterAnim="@anim/push_up_in"
+            app:popExitAnim="@anim/push_up_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailFragment"
+        android:name="kr.co.bullets.navdemo5.EmailFragment"
+        android:label="EmailFragment"
+        tools:layout="@layout/fragment_email" >
+        <action
+            android:id="@+id/action_emailFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="kr.co.bullets.navdemo5.WelcomeFragment"
+        android:label="WelcomeFragment"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_termsFragment"
+            app:destination="@id/termsFragment"
+            app:enterAnim="@anim/push_down_in"
+            app:exitAnim="@anim/push_down_out"
+            app:popEnterAnim="@anim/push_up_in"
+            app:popExitAnim="@anim/push_up_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/termsFragment"
+        android:name="kr.co.bullets.navdemo5.TermsFragment"
+        android:label="fragment_terms"
+        tools:layout="@layout/fragment_terms" />
+    <fragment
+        android:id="@+id/nameFragment"
+        android:name="kr.co.bullets.navdemo5.NameFragment"
+        android:label="NameFragment"
+        tools:layout="@layout/fragment_name" >
+        <action
+            android:id="@+id/action_nameFragment_to_emailFragment"
+            app:destination="@id/emailFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+</navigation>
