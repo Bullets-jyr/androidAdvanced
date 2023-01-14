@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/navdemo1" />
             <option value="$PROJECT_DIR$/navdemo5" />
             <option value="$PROJECT_DIR$/recyclerviewdemo" />
+            <option value="$PROJECT_DIR$/retrofitdemo" />
           </set>
         </option>
       </GradleProjectSettings>
