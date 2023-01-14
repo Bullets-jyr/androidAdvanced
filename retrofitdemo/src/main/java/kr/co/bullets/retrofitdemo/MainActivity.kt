@@ -3,6 +3,7 @@ package kr.co.bullets.retrofitdemo
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -15,6 +16,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val text_view = findViewById<TextView>(R.id.text_view)
         val retService = RetrofitInstance.getRetrofitInstance().create(AlbumService::class.java)
+
+        // path parameter example
+        val pathResponse: LiveData<Response<AlbumsItem>> = liveData {
+            val response = retService.getAlbum(3)
+            emit(response)
+        }
+
+        pathResponse.observe(this, Observer {
+            val title = it.body()?.title
+            Toast.makeText(applicationContext, title, Toast.LENGTH_LONG).show()
+        })
+
         val responseLiveData: LiveData<Response<Albums>> = liveData {
 //            val response = retService.getAlbums()
             val response = retService.getSortedAlbums(3)
