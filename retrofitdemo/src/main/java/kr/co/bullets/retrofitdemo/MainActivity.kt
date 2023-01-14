@@ -11,23 +11,18 @@ import androidx.lifecycle.liveData
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var retService: AlbumService
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val text_view = findViewById<TextView>(R.id.text_view)
-        val retService = RetrofitInstance.getRetrofitInstance().create(AlbumService::class.java)
+        retService = RetrofitInstance.getRetrofitInstance().create(AlbumService::class.java)
+        getRequestWithQueryParameters(text_view)
+//        getRequestWithPathParameters()
+    }
 
-        // path parameter example
-        val pathResponse: LiveData<Response<AlbumsItem>> = liveData {
-            val response = retService.getAlbum(3)
-            emit(response)
-        }
-
-        pathResponse.observe(this, Observer {
-            val title = it.body()?.title
-            Toast.makeText(applicationContext, title, Toast.LENGTH_LONG).show()
-        })
-
+    private fun getRequestWithQueryParameters(text_view: TextView) {
         val responseLiveData: LiveData<Response<Albums>> = liveData {
 //            val response = retService.getAlbums()
             val response = retService.getSortedAlbums(3)
@@ -40,11 +35,24 @@ class MainActivity : AppCompatActivity() {
                     val albumsItem = albumsList.next()
                     Log.i("MYTAG", albumsItem.title)
                     val result = " Album Title : ${albumsItem.title}\n" +
-                                 " Album Id : ${albumsItem.id}\n" +
-                                 " User Id : ${albumsItem.userId}\n\n\n"
+                            " Album Id : ${albumsItem.id}\n" +
+                            " User Id : ${albumsItem.userId}\n\n\n"
                     text_view.append(result)
                 }
             }
+        })
+    }
+
+    private fun getRequestWithPathParameters() {
+        // path parameter example
+        val pathResponse: LiveData<Response<AlbumsItem>> = liveData {
+            val response = retService.getAlbum(3)
+            emit(response)
+        }
+
+        pathResponse.observe(this, Observer {
+            val title = it.body()?.title
+            Toast.makeText(applicationContext, title, Toast.LENGTH_LONG).show()
         })
     }
 }
