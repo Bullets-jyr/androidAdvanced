@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/navdemo1" />
             <option value="$PROJECT_DIR$/navdemo5" />
+            <option value="$PROJECT_DIR$/recyclerviewdemo" />
           </set>
         </option>
       </GradleProjectSettings>

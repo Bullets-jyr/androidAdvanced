@@ -16,3 +16,4 @@ rootProject.name = "androidAdvanced"
 include ':app'
 include ':navdemo1'
 include ':navdemo5'
+include ':recyclerviewdemo'
