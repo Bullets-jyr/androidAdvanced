@@ -18,8 +18,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val text_view = findViewById<TextView>(R.id.text_view)
         retService = RetrofitInstance.getRetrofitInstance().create(AlbumService::class.java)
-//        getRequestWithQueryParameters(text_view)
-//        getRequestWithPathParameters()
+        getRequestWithQueryParameters(text_view)
+        getRequestWithPathParameters()
         uploadAlbum(text_view)
     }
 
