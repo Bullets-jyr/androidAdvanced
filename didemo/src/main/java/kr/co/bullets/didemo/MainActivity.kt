@@ -26,12 +26,15 @@ class MainActivity : AppCompatActivity() {
 
 //        smartPhone.makeACallWithRecording()
 
-        DaggerSmartPhoneComponent.builder()
-            .memoryCardModule(MemoryCardModule(1000))
-            .build()
-            .inject(this)
+//        DaggerSmartPhoneComponent.builder()
+//            .memoryCardModule(MemoryCardModule(1000))
+//            .build()
+//            .inject(this)
 
-        smartPhone.makeACallWithRecording()
+//        smartPhone.makeACallWithRecording()
+
+        (application as SmartPhoneApplication).smartPhoneComponent
+            .inject(this)
 
 //        val battery = Battery()
 //        val memoryCard = MemoryCard()
