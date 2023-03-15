@@ -36,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         (application as SmartPhoneApplication).smartPhoneComponent
             .inject(this)
 
+        smartPhone.makeACallWithRecording()
+
 //        val battery = Battery()
 //        val memoryCard = MemoryCard()
 //        val serviceProvider = ServiceProvider()
