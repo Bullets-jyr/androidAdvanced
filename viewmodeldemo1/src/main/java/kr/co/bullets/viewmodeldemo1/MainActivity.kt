@@ -3,6 +3,7 @@ package kr.co.bullets.viewmodeldemo1
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kr.co.bullets.viewmodeldemo1.databinding.ActivityMainBinding
 
@@ -19,10 +20,16 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 //        binding.countText.text = count.toString()
-        binding.countText.text = viewModel.getCurrentCount().toString()
+//        binding.countText.text = viewModel.getCurrentCount().toString()
+
+        viewModel.count.observe(this, Observer {
+            binding.countText.text = it.toString()
+        })
+
         binding.button.setOnClickListener {
 //            count++
-            binding.countText.text = viewModel.getUpdatedCount().toString()
+//            binding.countText.text = viewModel.getUpdatedCount().toString()
+            viewModel.updateCount()
         }
     }
 }
