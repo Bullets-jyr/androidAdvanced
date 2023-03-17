@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="myViewModel"
+            type="kr.co.bullets.viewmodeldemo2.MainActivityViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,6 +21,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
+            android:text="@={myViewModel.inputText}"
             android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="40dp"
+            android:onClick="@{() -> myViewModel.setTotal()}"
             android:text="Add"
             android:textSize="36sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +49,7 @@
             android:layout_marginStart="45dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="41dp"
+            android:text="@{String.valueOf(myViewModel.totalData)}"
             android:textSize="36sp"
             app:layout_constraintEnd_toEndOf="@+id/insert_button"
             app:layout_constraintStart_toStartOf="parent"

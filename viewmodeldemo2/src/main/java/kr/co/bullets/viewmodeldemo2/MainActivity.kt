@@ -19,17 +19,20 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModelFactory = MainActivityViewModelFactory(125)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainActivityViewModel::class.java)
+        binding.myViewModel = viewModel
+        // LiveData를 직접 사용하려면 데이터 바인딩 개체를 사용하여 수명 주기 소유자를 제공해야 합니다.
+        binding.lifecycleOwner = this
 
 //        viewModel.total.observe(this, Observer {
-        viewModel.totalData.observe(this, Observer {
-            binding.resultTextView.text = it.toString()
-        })
+//        viewModel.totalData.observe(this, Observer {
+//            binding.resultTextView.text = it.toString()
+//        })
 
 //        binding.resultTextView.text = viewModel.getTotal().toString()
 
-        binding.insertButton.setOnClickListener {
-            viewModel.setTotal(binding.inputEditText.text.toString().toInt())
+//        binding.insertButton.setOnClickListener {
+//            viewModel.setTotal(binding.inputEditText.text.toString().toInt())
 //            binding.resultTextView.text = viewModel.getTotal().toString()
-        }
+//        }
     }
 }
