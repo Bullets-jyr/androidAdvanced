@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="kr.co.bullets.navdemo1review.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_secondFragment"
+            app:destination="@id/secondFragment" />
+    </fragment>
     <fragment
         android:id="@+id/secondFragment"
         android:name="kr.co.bullets.navdemo1review.SecondFragment"
