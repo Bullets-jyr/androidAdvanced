@@ -32,6 +32,7 @@
             <option value="$PROJECT_DIR$/twowaydemo1" />
             <option value="$PROJECT_DIR$/viewmodeldemo1" />
             <option value="$PROJECT_DIR$/viewmodeldemo2" />
+            <option value="$PROJECT_DIR$/viewmodelscopedemo" />
           </set>
         </option>
       </GradleProjectSettings>
