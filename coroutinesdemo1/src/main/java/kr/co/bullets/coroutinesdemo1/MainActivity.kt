@@ -8,6 +8,7 @@ import android.widget.TextView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnDownloadUserData : Button
     private lateinit var btnCount : Button
     private lateinit var tvCount : TextView
+    private lateinit var tvUserMessage: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         btnDownloadUserData = findViewById(R.id.btnDownloadUserData)
         btnCount = findViewById(R.id.btnCount)
         tvCount = findViewById(R.id.tvCount)
+        tvUserMessage = findViewById(R.id.tvUserMessage)
 
         btnCount.setOnClickListener {
             tvCount.text = count++.toString()
@@ -35,9 +38,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun downloadUserData() {
+    private suspend fun downloadUserData() {
         for (i in 1..200000) {
-            Log.i("MYTAG", "Downloading user $i in ${Thread.currentThread().name}")
+//            Log.i("MYTAG", "Downloading user $i in ${Thread.currentThread().name}")
+            // We cannot call to a suspend function from a normal function
+            withContext(Dispatchers.Main) {
+                tvUserMessage.text = "Downloading user $i in ${Thread.currentThread().name}"
+            }
         }
     }
 }
