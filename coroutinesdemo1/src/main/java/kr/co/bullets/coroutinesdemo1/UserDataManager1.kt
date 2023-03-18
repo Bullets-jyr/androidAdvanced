@@ -2,7 +2,7 @@ package kr.co.bullets.coroutinesdemo1
 
 import kotlinx.coroutines.*
 
-class UserDataManager {
+class UserDataManager1 {
 
     suspend fun getTotalUserCount(): Int {
         var count = 0

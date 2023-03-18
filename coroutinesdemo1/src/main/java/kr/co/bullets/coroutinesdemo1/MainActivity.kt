@@ -2,7 +2,6 @@ package kr.co.bullets.coroutinesdemo1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import kotlinx.coroutines.CoroutineScope
@@ -37,7 +36,8 @@ class MainActivity : AppCompatActivity() {
 //            }
 
             CoroutineScope(Dispatchers.Main).launch {
-                tvUserMessage.text = UserDataManager().getTotalUserCount().toString()
+//                tvUserMessage.text = UserDataManager1().getTotalUserCount().toString()
+                tvUserMessage.text = UserDataManager2().getTotalUserCount().toString()
             }
         }
     }
