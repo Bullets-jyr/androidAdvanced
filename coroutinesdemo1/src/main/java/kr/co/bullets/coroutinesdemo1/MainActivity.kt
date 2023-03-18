@@ -32,8 +32,12 @@ class MainActivity : AppCompatActivity() {
         }
         btnDownloadUserData.setOnClickListener {
             // launch, async, produce, runBlocking
-            CoroutineScope(Dispatchers.IO).launch {
-                downloadUserData()
+//            CoroutineScope(Dispatchers.IO).launch {
+//                downloadUserData()
+//            }
+
+            CoroutineScope(Dispatchers.Main).launch {
+                tvUserMessage.text = UserDataManager().getTotalUserCount().toString()
             }
         }
     }
