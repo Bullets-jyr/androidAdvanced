@@ -1,14 +1,26 @@
 package kr.co.bullets.roomdemoreview.db
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import androidx.room.migration.AutoMigrationSpec
 
-@Database(entities = [Subscriber::class], version = 1)
+@Database(
+    entities = [Subscriber::class],
+    version = 3,
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2, spec = SubscriberDatabase.Migration1To2::class),
+        AutoMigration(from = 2, to = 3, spec = SubscriberDatabase.Migration2To3::class),
+    ]
+)
 abstract class SubscriberDatabase : RoomDatabase() {
 
     abstract val subscriberDAO: SubscriberDAO
+
+    @RenameColumn(tableName = "subscriber_data_table", fromColumnName = "subscriber_id", toColumnName = "subs_id")
+    class Migration1To2 : AutoMigrationSpec
+
+    @RenameColumn(tableName = "subscriber_data_table", fromColumnName = "subscriber_name", toColumnName = "subs_name")
+    class Migration2To3 : AutoMigrationSpec
 
     // Kotlin에서는 객체지향 디자인 패턴 중 하나인 싱글톤 패턴을 쉽게 구현하기 위해 companion object를 제공합니다.
     // companion object 키워드로 선언된 객체는 해당 클래스의 인스턴스를 생성하지 않아도 접근 가능합니다.
