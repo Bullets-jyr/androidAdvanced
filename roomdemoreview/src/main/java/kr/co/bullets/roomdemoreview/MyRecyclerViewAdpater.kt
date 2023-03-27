@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.co.bullets.roomdemoreview.databinding.ListItemBinding
 import kr.co.bullets.roomdemoreview.db.Subscriber
 
-class MyRecyclerViewAdapter(private val subscribersList: List<Subscriber>, private val clickListener: (Subscriber) -> Unit) : RecyclerView.Adapter<MyViewHolder>() {
+class MyRecyclerViewAdapter(private val clickListener: (Subscriber) -> Unit) : RecyclerView.Adapter<MyViewHolder>() {
+
+    private val subscribersList = ArrayList<Subscriber>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = DataBindingUtil.inflate<ListItemBinding>(layoutInflater, R.layout.list_item, parent, false)
@@ -20,6 +23,11 @@ class MyRecyclerViewAdapter(private val subscribersList: List<Subscriber>, priva
 
     override fun getItemCount(): Int {
         return subscribersList.size
+    }
+
+    fun setList(subscribers: List<Subscriber>) {
+        subscribersList.clear()
+        subscribersList.addAll(subscribers)
     }
 }
 
