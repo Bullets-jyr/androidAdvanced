@@ -11,24 +11,21 @@ import androidx.lifecycle.liveData
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var retService: AlbumService
+    private lateinit var text_view: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val text_view = findViewById<TextView>(R.id.text_view)
-        val retService = RetrofitInstance.getRetrofitInstance().create(AlbumService::class.java)
+        text_view = findViewById<TextView>(R.id.text_view)
+        retService = RetrofitInstance.getRetrofitInstance().create(AlbumService::class.java)
 
-        // path parameter example
-        val pathResponse: LiveData<Response<AlbumsItem>> = liveData {
-            val response = retService.getAlbum(3)
-            Log.e("MYTAG", "$response")
-            emit(response)
-        }
+        getRequestWithQueryParameters()
+//        getRequestWithPathParameters()
+    }
 
-        pathResponse.observe(this, Observer {
-            val title = it.body()?.title
-            Toast.makeText(applicationContext, title, Toast.LENGTH_LONG).show()
-        })
-
+    private fun getRequestWithQueryParameters() {
         val responseLiveData: LiveData<Response<Albums>> = liveData {
 //            val response = retService.getAlbums()
             val response = retService.getSortedAlbums(3)
@@ -44,11 +41,25 @@ class MainActivity : AppCompatActivity() {
                     val albumsItem = albumsList.next()
                     Log.i("MYTAG", albumsItem.title)
                     val result = " " + "Album title : ${albumsItem.title}" + "\n" +
-                                 " " + "Album id : ${albumsItem.id}" + "\n" +
-                                 " " + "Album userId : ${albumsItem.userId}" + "\n\n\n"
+                            " " + "Album id : ${albumsItem.id}" + "\n" +
+                            " " + "Album userId : ${albumsItem.userId}" + "\n\n\n"
                     text_view.append(result)
                 }
             }
+        })
+    }
+
+    private fun getRequestWithPathParameters() {
+        // path parameter example
+        val pathResponse: LiveData<Response<AlbumsItem>> = liveData {
+            val response = retService.getAlbum(3)
+            Log.e("MYTAG", "$response")
+            emit(response)
+        }
+
+        pathResponse.observe(this, Observer {
+            val title = it.body()?.title
+            Toast.makeText(applicationContext, title, Toast.LENGTH_LONG).show()
         })
     }
 }
