@@ -36,8 +36,8 @@ android {
 dependencies {
     def retrofit_version = "2.9.0"
     def gson_version = "2.9.0"
-    def coroutines_version = "1.8.10"
-    def coroutines_android_version = "1.7.0-Beta"
+    def coroutines_version = "1.6.4"
+    def coroutines_android_version = "1.6.4"
     def lifecycle_version = "2.5.1"
 
     implementation 'androidx.core:core-ktx:1.7.0'
