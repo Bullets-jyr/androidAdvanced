@@ -3,7 +3,7 @@ package kr.co.bullets.retrofitdemoreview
 
 import com.google.gson.annotations.SerializedName
 
-data class AlbumItem(
+data class AlbumsItem(
     @SerializedName("id")
     val id: Int,
     @SerializedName("title")
