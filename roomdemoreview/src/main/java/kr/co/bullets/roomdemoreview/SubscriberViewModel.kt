@@ -1,5 +1,6 @@
 package kr.co.bullets.roomdemoreview
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,6 +22,11 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
 
     val saveOrUpdateButtonText = MutableLiveData<String>()
     val clearAllOrDeleteButtonText = MutableLiveData<String>()
+
+    private val statusMessage = MutableLiveData<Event<String>>()
+
+    val message: LiveData<Event<String>>
+        get() = statusMessage
 
     init {
         saveOrUpdateButtonText.value = "Save"
@@ -58,6 +64,9 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
         // 따라서, viewModelScope를 사용하면 ViewModel에서 비동기 처리를 할 때 안정적이고 쉽게 구현할 수 있으며, 안드로이드 앱의 성능과 안정성을 향상시킬 수 있습니다.
         viewModelScope.launch(Dispatchers.IO) {
             repository.insert(subscriber)
+            withContext(Dispatchers.Main) {
+                statusMessage.value = Event("Subscriber Inserted Successfully!")
+            }
         }
     }
 
@@ -73,6 +82,7 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
             isUpdateOrDelete = false
             saveOrUpdateButtonText.value = "Save"
             clearAllOrDeleteButtonText.value = "Clear All"
+            statusMessage.value = Event("Subscriber Updated Successfully!")
         }
     }
 
@@ -85,11 +95,15 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
             isUpdateOrDelete = false
             saveOrUpdateButtonText.value = "Save"
             clearAllOrDeleteButtonText.value = "Clear All"
+            statusMessage.value = Event("Subscriber Deleted Successfully!")
         }
     }
 
     fun clearAll() = viewModelScope.launch(Dispatchers.IO) {
         repository.deleteAll()
+        withContext(Dispatchers.Main) {
+            statusMessage.value = Event("All Subs Successfully!")
+        }
     }
 
     fun initUpdateAndDelete(subscriber: Subscriber) {

@@ -31,6 +31,12 @@ class MainActivity : AppCompatActivity() {
 
 //        displaySubscribersList()
         initRecyclerView()
+
+        subscriberViewModel.message.observe(this, Observer {
+            it.getContentIfNotHandled()?.let {
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun initRecyclerView() {
