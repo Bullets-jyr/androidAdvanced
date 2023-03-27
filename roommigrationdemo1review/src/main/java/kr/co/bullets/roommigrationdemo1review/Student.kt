@@ -15,5 +15,8 @@ data class Student(
     var name: String,
 
     @ColumnInfo(name = "student_email", defaultValue = "No Email")
-    var email: String
+    var email: String,
+
+    @ColumnInfo(name = "course_name")
+    var course: String?,
 )
