@@ -13,31 +13,36 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     private lateinit var retService: AlbumService
+    private lateinit var text_view: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val text_view = findViewById<TextView>(R.id.text_view)
+        text_view = findViewById<TextView>(R.id.text_view)
         retService = RetrofitInstance.getRetrofitInstance().create(AlbumService::class.java)
-        getRequestWithQueryParameters(text_view)
-        getRequestWithPathParameters()
-        uploadAlbum(text_view)
+
+        getRequestWithQueryParameters()
+//        getRequestWithPathParameters()
     }
 
-    private fun getRequestWithQueryParameters(text_view: TextView) {
+    private fun getRequestWithQueryParameters() {
         val responseLiveData: LiveData<Response<Albums>> = liveData {
 //            val response = retService.getAlbums()
             val response = retService.getSortedAlbums(3)
             emit(response)
         }
+
         responseLiveData.observe(this, Observer {
+            // 이 메서드는 ListIterator 인터페이스를 반환하는데, 이 인터페이스는 List를 양방향으로 순회하며 수정할 수 있는 기능을 제공합니다.
             val albumsList = it.body()?.listIterator()
+            Log.e("MYTAG", "$albumsList")
             if (albumsList != null) {
                 while (albumsList.hasNext()) {
                     val albumsItem = albumsList.next()
                     Log.i("MYTAG", albumsItem.title)
-                    val result = " Album Title : ${albumsItem.title}\n" +
-                            " Album Id : ${albumsItem.id}\n" +
-                            " User Id : ${albumsItem.userId}\n\n\n"
+                    val result = " " + "Album title : ${albumsItem.title}" + "\n" +
+                            " " + "Album id : ${albumsItem.id}" + "\n" +
+                            " " + "Album userId : ${albumsItem.userId}" + "\n\n\n"
                     text_view.append(result)
                 }
             }
@@ -48,27 +53,13 @@ class MainActivity : AppCompatActivity() {
         // path parameter example
         val pathResponse: LiveData<Response<AlbumsItem>> = liveData {
             val response = retService.getAlbum(3)
+            Log.e("MYTAG", "$response")
             emit(response)
         }
 
         pathResponse.observe(this, Observer {
             val title = it.body()?.title
             Toast.makeText(applicationContext, title, Toast.LENGTH_LONG).show()
-        })
-    }
-
-    private fun uploadAlbum(text_view: TextView) {
-        val album = AlbumsItem(0, "My title", 3)
-        val postResponse: LiveData<Response<AlbumsItem>> = liveData {
-            val response = retService.uploadAlbum(album)
-            emit(response)
-        }
-        postResponse.observe(this, Observer {
-            val receivedAlbumsItem = it.body()
-            val result = " Album Title : ${receivedAlbumsItem?.title}\n" +
-                    " Album Id : ${receivedAlbumsItem?.id}\n" +
-                    " User Id : ${receivedAlbumsItem?.userId}\n\n\n"
-            text_view.text = result
         })
     }
 }
