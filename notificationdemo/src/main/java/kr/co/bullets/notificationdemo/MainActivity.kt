@@ -11,11 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.core.app.NotificationCompat
+import androidx.core.app.RemoteInput
 
 class MainActivity : AppCompatActivity() {
 
     private val channelID = "kr.co.bullets.notificationdemo.channel1"
     private var notificationManager: NotificationManager? = null
+    private val KEY_REPLY = "key_reply"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +41,8 @@ class MainActivity : AppCompatActivity() {
             0,
             tapResultIntent,
 //            PendingIntent.FLAG_UPDATE_CURRENT,
-            PendingIntent.FLAG_IMMUTABLE
+//            PendingIntent.FLAG_IMMUTABLE,
+            PendingIntent.FLAG_MUTABLE
         )
 
         // action button 1
@@ -70,15 +73,29 @@ class MainActivity : AppCompatActivity() {
 
         val action3 = NotificationCompat.Action.Builder(0, "Settings", pendingIntent3).build()
 
+        // reply action
+        val remoteInput = RemoteInput.Builder(KEY_REPLY).run {
+            setLabel("Insert you name here")
+            build()
+        }
+
+        val replyAction = NotificationCompat.Action.Builder(
+            0,
+            "REPLY",
+            pendingIntent
+        ).addRemoteInput(remoteInput)
+            .build()
+
         val notification = NotificationCompat.Builder(this@MainActivity, channelID)
             .setContentTitle("Demo Title")
             .setContentText("This is a demo notification")
             .setSmallIcon(android.R.drawable.ic_dialog_info)
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentIntent(pendingIntent)
+//            .setContentIntent(pendingIntent)
             .addAction(action2)
             .addAction(action3)
+            .addAction(replyAction)
             .build()
         notificationManager?.notify(notificationId, notification)
     }
