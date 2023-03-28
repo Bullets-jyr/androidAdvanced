@@ -38,7 +38,26 @@ class MainActivity : AppCompatActivity() {
             .setInputData(data)
             .build()
 
-        workManager.enqueue(uploadRequest)
+        val filteringRequest = OneTimeWorkRequest.Builder(FilteringWorlker::class.java)
+            .build()
+
+        val compressingRequest = OneTimeWorkRequest.Builder(CompressingWorker::class.java)
+            .build()
+
+        val downloadingWorker = OneTimeWorkRequest.Builder(DownloadingWorker::class.java)
+            .build()
+
+        val paralleWorks = mutableListOf<OneTimeWorkRequest>()
+        paralleWorks.add(downloadingWorker)
+        paralleWorks.add(filteringRequest)
+
+        workManager
+//            .beginWith(filteringRequest)
+            .beginWith(paralleWorks)
+            .then(compressingRequest)
+            .then(uploadRequest)
+            .enqueue()
+//            .enqueue(uploadRequest)
         workManager.getWorkInfoByIdLiveData(uploadRequest.id)
             .observe(this, Observer {
                 val textView = findViewById<TextView>(R.id.textView)

@@ -13,6 +13,7 @@ class UploadWorker(context: Context, params: WorkerParameters) : Worker(context,
     companion object {
         const val KEY_WORKER = "key_worker"
     }
+
     override fun doWork(): Result {
         try {
             val count = inputData.getInt(MainActivity.KEY_COUNT_VALUE, 0)
