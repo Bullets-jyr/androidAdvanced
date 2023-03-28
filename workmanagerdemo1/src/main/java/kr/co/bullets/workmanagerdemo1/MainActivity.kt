@@ -7,6 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.work.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -17,7 +18,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
-            setOneTimeWorkRequest()
+//            setOneTimeWorkRequest()
+            setPeridicWorkRequest()
         }
     }
 
@@ -69,5 +71,14 @@ class MainActivity : AppCompatActivity() {
                 }
                 textView.text = it.state.name
             })
+    }
+
+    private fun setPeridicWorkRequest() {
+        // Periodic Work Request를 설정할 때, 가장 짧은 주기는 15분
+        val periodicWorkRequest = PeriodicWorkRequest
+            .Builder(DownloadingWorker::class.java, 16, TimeUnit.MINUTES)
+            .build()
+
+        WorkManager.getInstance(applicationContext).enqueue(periodicWorkRequest)
     }
 }
