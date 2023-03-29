@@ -1,7 +1,9 @@
 package kr.co.bullets.didemoreview
 
 import dagger.Component
+import javax.inject.Singleton
 
+@Singleton
 @Component(modules = [MemoryCardModule::class, NCBatteryModule::class])
 interface SmartPhoneComponent {
 
