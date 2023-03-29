@@ -2,18 +2,26 @@ package kr.co.bullets.didemoreview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var smartPhone: SmartPhone
+    @Inject
+    lateinit var smartPhone: SmartPhone
+
+    @Inject
+    lateinit var memoryCard: MemoryCard
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         DaggerSmartPhoneComponent.create()
-            .getSmartPhone()
-            .makeACallWithRecording()
+//            .getSmartPhone()
+            .inject(this)
+//            .makeACallWithRecording()
+
+        smartPhone.makeACallWithRecording()
 
 //        val battery = Battery()
 //        val memoryCard = MemoryCard()
