@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 //        val simCard = SIMCard(serviceProvider)
         // This type of dependency injection is called Constructor injection.
 //        val smartPhone = SmartPhone(battery, simCard, memoryCard)
+
 //        smartPhone.makeACallWithRecording()
 //        val smartPhone = SmartPhone(
 //            Battery(),

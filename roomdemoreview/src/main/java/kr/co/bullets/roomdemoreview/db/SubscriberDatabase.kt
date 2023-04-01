@@ -31,7 +31,6 @@ abstract class SubscriberDatabase : RoomDatabase() {
         // 이는 멀티스레드 환경에서 변수의 값을 안전하게 관리하기 위한 것으로, 변수의 값을 항상 메인 메모리에서 읽고 쓰도록 보장합니다.
         @Volatile
         private var INSTANCE: SubscriberDatabase? = null
-
         fun getInstance(context: Context): SubscriberDatabase {
             // synchronized 블록을 사용하여 메소드에 대한 동기화를 보장합니다. 이 블록 내부에서는 한 번에 하나의 스레드만이 실행됩니다.
             synchronized(this) {
