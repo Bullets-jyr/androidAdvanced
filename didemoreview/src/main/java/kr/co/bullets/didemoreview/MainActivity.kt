@@ -45,6 +45,10 @@ class MainActivity : AppCompatActivity() {
 //            .inject(this)
 //        smartPhone.makeACallWithRecording()
 
+        // Now, you can see here, this create function call is in red color.
+        // Since at least one of our modules has a state, we cannot use this simple create function (DaggerSmartPhoneComponent.create()), to construct a SmartPhoneComponent.
+        // Instead we have to use the builder. DaggerSmartPhoneComponent.builder() When we are constructing
+        // the component with a builder function, we have to add each module with a state here.
 //        DaggerSmartPhoneComponent.builder()
 //            .memoryCardModule(MemoryCardModule(1000))
 //            .build()
