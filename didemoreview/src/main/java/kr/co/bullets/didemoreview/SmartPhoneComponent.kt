@@ -4,6 +4,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
+// Here we need to link our module to this component.
 @Component(modules = [MemoryCardModule::class, NCBatteryModule::class])
 interface SmartPhoneComponent {
 
