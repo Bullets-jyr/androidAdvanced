@@ -3,6 +3,14 @@ package kr.co.bullets.didemoreview
 import dagger.Component
 import javax.inject.Singleton
 
+// In our current project example every time we invoke this inject function of the SmartPhoneComponent interface
+// Dagger constructs a new smart phone object and inject it to the Activity.
+// If we had another activity or fragment in this project which injecting the same smartphone object we would have navigated to that.
+// Every time we invoke the inject function dagger constructs a new SmartPhone object in the memory.
+// Not only that, in order to do so, dagger has to always construct ServiceProvider, SIMCard ,MemoryCard, and NickelCadmium battery objects as well.
+// This is very inefficient. In some use cases, constructing multiple instances of the same class might cause unexpected behaviors.
+// We can easily avoid this using @Singleton annotation.
+// And annotate it with Singleton.
 @Singleton
 // Here we need to link our module to this component.
 @Component(modules = [MemoryCardModule::class, NCBatteryModule::class])
