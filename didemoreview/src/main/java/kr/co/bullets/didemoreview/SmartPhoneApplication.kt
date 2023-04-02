@@ -7,8 +7,8 @@ class SmartPhoneApplication : Application() {
     lateinit var smartPhoneComponent: SmartPhoneComponent
 
     override fun onCreate() {
-        smartPhoneComponent = initDagger()
         super.onCreate()
+        smartPhoneComponent = initDagger()
     }
 
     private fun initDagger(): SmartPhoneComponent {

@@ -53,9 +53,10 @@ class MainActivity : AppCompatActivity() {
 //            .memoryCardModule(MemoryCardModule(1000))
 //            .build()
 //            .inject(this)
-
 //        smartPhone.makeACallWithRecording()
 
+        // Here, We will write codes to get the application, And then get the smartPhoneComponent instance from it
+        // and finally invoke its inject function passing this activity.
         (application as SmartPhoneApplication).smartPhoneComponent.inject(this)
         smartPhone.makeACallWithRecording()
 
